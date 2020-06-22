@@ -34,10 +34,12 @@ pipeline {
             }
         }
 
-        stage(' Unit Testing') {
+        stage('Deploy MobileStore API') {
             steps {
                 sh """
-                echo "Running Unit Tests"
+                echo "Deploy MobileStore API"
+                pwd
+                ls
                 """
             }
         }
