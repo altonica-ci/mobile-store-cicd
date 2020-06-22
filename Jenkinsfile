@@ -16,7 +16,6 @@ pipeline {
     }
 
     stages {
-
         stage('Deploy MobileStore API') {
             steps {
                 sh """

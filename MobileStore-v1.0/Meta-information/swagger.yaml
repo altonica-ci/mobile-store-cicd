@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
   title: MobileStore
-  description: This is the API used for MobilePioneer Inc
-  termsOfService: http://mobilepioneer.io/terms/
+  description: This is the API used for Altronica Inc
+  termsOfService: http://altronica.io/terms/
   contact:
     email: apiteam@mobilepioneer.io
   license:

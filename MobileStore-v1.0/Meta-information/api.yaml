@@ -2,7 +2,7 @@ id:
   providerName: admin
   apiName: MobileStore
   version: "1.0"
-description: This is the API used for MobilePioneer Inc
+description: This is the API used for Altronica Inc
 type: HTTP
 context: /mobile-store/1.0
 contextTemplate: /mobile-store/{version}
