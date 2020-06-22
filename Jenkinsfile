@@ -16,24 +16,6 @@ pipeline {
     }
 
     stages {
-        
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-            }
-        }
-
-        stage('Code Checkout') {
-            steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    userRemoteConfigs: [[url: 'https://github.com/altonica-ci/mobile-store-cicd']]
-                ])
-            }
-        }
 
         stage('Deploy MobileStore API') {
             steps {
