@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh """
                 pwd
-                ls
+                find .
                 apictl login pr-test -u admin -p admin -k
                 apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
                 apictl change-status api -a Publish -n MobileStore -v 1.0 -e pr-test -k
