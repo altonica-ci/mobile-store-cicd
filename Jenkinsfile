@@ -37,9 +37,8 @@ pipeline {
         stage('Deploy MobileStore API') {
             steps {
                 sh """
-                echo "Deploy MobileStore API"
-                pwd
-                ls
+                apictl import-api -e pr-test -f MobileStore-v1.0  -k --update
+                apictl change-status api -a Publish -n MobileStore -v 1.0 -e pr-test -k
                 """
             }
         }
