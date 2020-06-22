@@ -1,0 +1,5 @@
+environments:
+  - name: pr-test
+    endpoints:
+      production:
+      sandbox:

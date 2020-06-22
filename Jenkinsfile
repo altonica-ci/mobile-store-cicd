@@ -5,7 +5,9 @@ pipeline {
             label 'master'
         }
     }
-
+    environment { 
+        PATH = "/root/apictl:$PATH"
+    }
     options {
         buildDiscarder logRotator( 
                     daysToKeepStr: '16', 
@@ -14,32 +16,12 @@ pipeline {
     }
 
     stages {
-        
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-                sh """
-                echo "Cleaned Up Workspace For Project"
-                """
-            }
-        }
-
-        stage('Code Checkout') {
-            steps {
-                checkout([
-                    $class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[url: 'https://github.com/spring-projects/spring-petclinic.git']]
-                ])
-            }
-        }
-
         stage('Deploy MobileStore API') {
             steps {
                 sh """
-                echo "Deploy MobileStore API"
-                pwd
-                ls
+                apictl login pr-test -u admin -p admin -k
+                apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
+                apictl change-status api -a Publish -n MobileStore -v 1.0 -e pr-test -k
                 """
             }
         }
