@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment { 
-        PATH = "/root/apictl:$PATH"
+        PATH = "/root/apictl:/root/.nvm/versions/node/v12.18.1/bin:$PATH"
     }
     options {
         buildDiscarder logRotator( 
