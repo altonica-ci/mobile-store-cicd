@@ -42,6 +42,11 @@ pipeline {
                 sh """
                 rm Testing/envs/pr-test.tmp.json
                 echo "Removed temporary files"
+
+                apictl change-status api -a Deprecate -n MobileStore -v 1.0 -e pr-test -k
+                apictl change-status api -a Retire -n MobileStore -v 1.0 -e pr-test -k
+                apictl delete api -n MobileStore -v 1.0 -e pr-test -k
+                echo "Removed MobileStore API"
                 """
             }
         }
