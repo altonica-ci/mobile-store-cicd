@@ -22,7 +22,11 @@ pipeline {
                 echo "PR ANALYSIS"
                 apictl login pr-test -u admin -p admin -k
                 apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
-                apictl change-status api -a Publish -n MobileStore -v 1.0 -e pr-test -k
+                export TOKEN=$(apictl get-keys -n MobileStore -v 1.0 -e pr-test -k)
+                echo $(envsubst < Testing/envs/pr-test.json) > Testing/envs/pr-test.tmp.json
+                newman run Testing/TestAPI.postman_collection.json -e Testing/envs/pr-test.tmp.json --insecure
+                rm pr-test.tmp.json
+                rm Testing/envs/pr-test.tmp.json
                 """
             }
         }
