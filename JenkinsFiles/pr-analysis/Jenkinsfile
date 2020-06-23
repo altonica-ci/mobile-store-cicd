@@ -40,7 +40,6 @@ pipeline {
         stage('Cleanup') {
             steps {
                 sh """
-                rm pr-test.tmp.json
                 rm Testing/envs/pr-test.tmp.json
                 echo "Removed temporary files"
                 """
