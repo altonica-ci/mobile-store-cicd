@@ -6,7 +6,7 @@ pipeline {
         }
     }
     environment { 
-        PATH = "/root/apictl:$PATH"
+        PATH = "/root/apictl:/root/.nvm/versions/node/v12.18.1/bin:$PATH"
     }
     options {
         buildDiscarder logRotator( 
@@ -16,36 +16,38 @@ pipeline {
     }
 
     stages {
-        stage('Deploy MobileStore API') {
+        stage('Deploy MobileStore API To Dev') {
             steps {
                 sh """
-                echo "MERGED TO MASTER"
-                apictl login pr-test -u admin -p admin -k
-                apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
-                apictl change-status api -a Publish -n MobileStore -v 1.0 -e pr-test -k
+                apictl login dev -u admin -p admin -k
+                apictl import-api -e dev -f MobileStore-v1.0  -k --update -k
+                sleep 6
                 """
             }
         }
 
-        stage('Code Analysis') {
+        stage('Test MobileStore API In Dev') {
             steps {
                 sh """
-                echo "Running Code Analysis"
+                
                 """
             }
         }
 
-        stage('Build Deploy Code') {
-            when {
-                branch 'develop'
-            }
+        stage('Deploy MobileStore API To Prod') {
             steps {
                 sh """
-                echo "Building Artifact"
+                apictl login prod -u admin -p admin -k
+                apictl import-api -e prod -f MobileStore-v1.0  -k --update -k
+                sleep 6
                 """
+            }
+        }
 
+        stage('Test MobileStore API In Prod') {
+            steps {
                 sh """
-                echo "Deploying Code"
+                
                 """
             }
         }

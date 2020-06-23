@@ -19,7 +19,6 @@ pipeline {
         stage('Deploy MobileStore API') {
             steps {
                 sh """
-                echo "PR ANALYSIS"
                 apictl login pr-test -u admin -p admin -k
                 apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
                 sleep 6
