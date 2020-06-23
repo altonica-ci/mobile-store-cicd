@@ -9,7 +9,7 @@
 		},
 		{
 			"key": "token",
-			"value": "$key",
+			"value": "$TOKEN",
 			"enabled": true
 		}
 	],
