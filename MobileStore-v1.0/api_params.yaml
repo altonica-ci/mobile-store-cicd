@@ -17,3 +17,5 @@ environments:
         url: http://mobilestore.prod.altonica.com:9000
       sandbox:
         url: http://mobilestore.prod.altonica.com:9000
+
+        
