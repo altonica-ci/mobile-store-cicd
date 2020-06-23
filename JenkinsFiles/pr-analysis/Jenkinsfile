@@ -22,34 +22,27 @@ pipeline {
                 echo "PR ANALYSIS"
                 apictl login pr-test -u admin -p admin -k
                 apictl import-api -e pr-test -f MobileStore-v1.0  -k --update -k
+                sleep 10
+                """
+            }
+        }
+
+        stage('Testing MobileStore API') {
+            steps {
+                sh """
                 export TOKEN=\$(apictl get-keys -n MobileStore -v 1.0 -e pr-test -k)
                 echo \$(envsubst < Testing/envs/pr-test.json) > Testing/envs/pr-test.tmp.json
                 newman run Testing/TestAPI.postman_collection.json -e Testing/envs/pr-test.tmp.json --insecure
+                """
+            }
+        }
+
+        stage('Cleanup') {
+            steps {
+                sh """
                 rm pr-test.tmp.json
                 rm Testing/envs/pr-test.tmp.json
-                """
-            }
-        }
-
-        stage('Code Analysis') {
-            steps {
-                sh """
-                echo "Running Code Analysis"
-                """
-            }
-        }
-
-        stage('Build Deploy Code') {
-            when {
-                branch 'develop'
-            }
-            steps {
-                sh """
-                echo "Building Artifact"
-                """
-
-                sh """
-                echo "Deploying Code"
+                echo "Removed temporary files"
                 """
             }
         }
