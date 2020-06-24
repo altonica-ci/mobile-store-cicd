@@ -23,10 +23,10 @@ tags:
 - name: orders
   description: Access to Mobile Device orders
   externalDocs:
-    description: Find out more about our store
+    description: Find out more about our store ...
     url: http://mobilepioneer.io
 paths:
-  /mobile-device:
+  /mobile-devices:
     get:
       tags:
       - devices
