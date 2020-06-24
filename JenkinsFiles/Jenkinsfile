@@ -29,7 +29,9 @@ pipeline {
         stage('Test MobileStore API In Dev') {
             steps {
                 sh """
-                
+                export TOKEN=\$(apictl get-keys -n MobileStore -v 1.0 -e dev -k)
+                echo \$(envsubst < Testing/envs/dev.json) > Testing/envs/env.tmp.json
+                newman run Testing/TestAPI.postman_collection.json -e Testing/envs/env.tmp.json --insecure
                 """
             }
         }
@@ -47,7 +49,9 @@ pipeline {
         stage('Test MobileStore API In Prod') {
             steps {
                 sh """
-                
+                export TOKEN=\$(apictl get-keys -n MobileStore -v 1.0 -e prod -k)
+                echo \$(envsubst < Testing/envs/prod.json) > Testing/envs/env.tmp.json
+                newman run Testing/TestAPI.postman_collection.json -e Testing/envs/env.tmp.json --insecure
                 """
             }
         }

@@ -30,8 +30,8 @@ pipeline {
             steps {
                 sh """
                 export TOKEN=\$(apictl get-keys -n MobileStore -v 1.0 -e pr-test -k)
-                echo \$(envsubst < Testing/envs/pr-test.json) > Testing/envs/pr-test.tmp.json
-                newman run Testing/TestAPI.postman_collection.json -e Testing/envs/pr-test.tmp.json --insecure
+                echo \$(envsubst < Testing/envs/pr-test.json) > Testing/envs/env.tmp.json
+                newman run Testing/TestAPI.postman_collection.json -e Testing/envs/env.tmp.json --insecure
                 """
             }
         }
@@ -39,7 +39,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 sh """
-                rm Testing/envs/pr-test.tmp.json
+                rm Testing/envs/env.tmp.json
                 echo "Removed temporary files"
 
                 apictl change-status api -a Deprecate -n MobileStore -v 1.0 -e pr-test -k
