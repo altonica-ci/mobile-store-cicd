@@ -26,7 +26,7 @@ tags:
     description: Find out more about our store ...
     url: http://mobilepioneer.io
 paths:
-  /mobile-device:
+  /mobile-devices:
     get:
       tags:
       - devices
